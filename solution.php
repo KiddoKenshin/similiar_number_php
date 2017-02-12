@@ -18,8 +18,42 @@ If N = 0, it should return 1.
 If N = 100, it should also return 1 as 010 or 001 is not valid.
 //*/
 
+$_uniqueIntStorage;
+
+function recursiveIntGenerator($intString, $depth, $arrangement = array()) {
+	$length = strlen($intString);
+	for ($i = 0; $i < $length; $i++) {
+		if (in_array($i, $arrangement)) {
+			continue;
+		}
+		
+		$newArrangement = $arrangement;
+		$newArrangement[] = $i;
+		if ($depth + 1 == strlen($intString) - 1) {
+			$combined = '';
+			foreach ($arrangement as $value) {
+				$combined .= $intString[$value];
+			}
+			
+			
+			if (!in_array($combined, $GLOBALS['_uniqueIntStorage'])) {
+				$GLOBALS['_uniqueIntStorage'][] = $combined;
+			}
+		} else {
+			recursiveIntGenerator($intString, $depth + 1, $newArrangement);
+		}
+	}
+	
+}
+
+function occupyStorage($intString) {
+	for ($i = 0; $i < strlen($intString); $i++) {
+		recursiveIntGenerator($intString, 0, array($i));
+	}
+}
+
 function solution($N) {
-	$uniqueIntStorage = array();
+	$GLOBALS['_uniqueIntStorage'] = array();
 	$stringN = (string)$N;
 	$strLength = strlen($stringN);
 	
@@ -41,9 +75,18 @@ function solution($N) {
 	Total Unique: 24
 	//*/
 	
-	return count($uniqueIntStorage);
+	occupyStorage($stringN);
+	
+	return count($GLOBALS['_uniqueIntStorage']);
 }
 
 var_dump(solution(0) == 1);
+var_dump(solution(123) == 6);
+var_dump(solution(1213) == 12);
+var_dump(solution(1234) == 24);
+var_dump(solution(11111) == 1);
+var_dump(solution(11211) == 5);
+
+// var_dump($_uniqueIntStorage);
 
 ?>
