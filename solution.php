@@ -31,7 +31,7 @@ function recursiveIntGenerator($intString, $depth, $arrangement = array()) {
 		$newArrangement[] = $i;
 		if ($depth + 1 == strlen($intString) - 1) {
 			$combined = '';
-			foreach ($arrangement as $value) {
+			foreach ($newArrangement as $value) {
 				$combined .= $intString[$value];
 			}
 			
