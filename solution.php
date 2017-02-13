@@ -35,8 +35,7 @@ function recursiveIntGenerator($intString, $depth, $arrangement = array()) {
 				$combined .= $intString[$value];
 			}
 			
-			
-			if (!in_array($combined, $GLOBALS['_uniqueIntStorage'])) {
+			if (!in_array($combined, $GLOBALS['_uniqueIntStorage']) && $combined[0] != '0') {
 				$GLOBALS['_uniqueIntStorage'][] = $combined;
 			}
 		} else {
@@ -86,6 +85,7 @@ var_dump(solution(1213) == 12);
 var_dump(solution(1234) == 24);
 var_dump(solution(11111) == 1);
 var_dump(solution(11211) == 5);
+var_dump(solution(10000) == 1);
 
 // var_dump($_uniqueIntStorage);
 
