@@ -47,6 +47,9 @@ function recursiveIntGenerator($intString, $depth, $arrangement = array()) {
 
 function occupyStorage($intString) {
 	for ($i = 0; $i < strlen($intString); $i++) {
+		if ($intString[$i] == '0') {
+			continue;
+		}
 		recursiveIntGenerator($intString, 0, array($i));
 	}
 }
@@ -79,6 +82,8 @@ function solution($N) {
 	return count($GLOBALS['_uniqueIntStorage']);
 }
 
+$time_start = microtime(true);
+
 var_dump(solution(0) == 1);
 var_dump(solution(123) == 6);
 var_dump(solution(1213) == 12);
@@ -86,6 +91,9 @@ var_dump(solution(1234) == 24);
 var_dump(solution(11111) == 1);
 var_dump(solution(11211) == 5);
 var_dump(solution(10000) == 1);
+
+$time_end = microtime(true);
+echo 'Execution time: ' . ($time_end - $time_start) . " seconds\n";
 
 // var_dump($_uniqueIntStorage);
 
